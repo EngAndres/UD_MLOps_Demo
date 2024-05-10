@@ -28,3 +28,8 @@ jobs:
       run: |
         gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
         docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v5
+
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy ud-mlops --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v5 --region ${{ secrets.GCP_REGION }} --platform managed --allow-unauthenticated
