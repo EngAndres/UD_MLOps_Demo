@@ -21,15 +21,18 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
+    - name: Enable Cloud Run API
+      run: gcloud services enable run.googleapis.com
+
     - name: Build Docker image
-      run: docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v5 .
+      run: docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v6 .
   
     - name: Push Docker image to Artifact Registry
       run: |
         gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
-        docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v5
+        docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v6
 
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy ud-mlops --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v5 --region ${{ secrets.GCP_REGION }} --platform managed --allow-unauthenticated
+        gcloud run deploy ud-mlops --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/demo-ud/ud-mlops:v6 --region ${{ secrets.GCP_REGION }} --platform managed --allow-unauthenticated
