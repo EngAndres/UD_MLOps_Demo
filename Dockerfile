@@ -1,7 +1,7 @@
 
 FROM --platform=arm64 python:3.11-slim
 
-# Set the working directory in the container   
+# Set the working directory in the container
 WORKDIR /app
 
 # Copy the dependencies file to the working directory
