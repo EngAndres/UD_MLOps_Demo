@@ -1,5 +1,6 @@
-a = 5
+"""asjsjslakjdlsakjdfa;ldjf;lsafj;lskdfja;sdfjaldfjaslfjlaskdjfa
+lksdjflaskjdfa;lksdfj;laskdjflaksjfdaslkdjf"""
 
-print("hello")
+A = 5
 
-"""asjsjslakjdlsakjdfa;ldjf;lsafj;lskdfja;sdfjaldfjaslfjlaskdjfalksdjflaskjdfa;lksdfj;laskdjflaksjfdaslkdjf"""
+print(A)
