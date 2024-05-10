@@ -1,0 +1,30 @@
+name: Deploy UD-MLOps to Cloud
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.1
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        export_default_credentials: true
+
+    - name: Build Docker image
+      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/ud-mlops:v4 .
+
+    - name: Push Docker image to GCR
+      run: |
+        gcloud auth configure-docker
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/ud-mlops:v4
