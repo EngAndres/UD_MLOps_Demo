@@ -10,6 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 
 from model_ml import MLModel
 
+
 # pylint: disable=too-few-public-methods
 class Passenger(BaseModel):
     """Data Structure for the ML model."""
