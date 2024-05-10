@@ -1,6 +1,19 @@
-"""asjsjslakjdlsakjdfa;ldjf;lsafj;lskdfja;sdfjaldfjaslfjlaskdjfa
-lksdjflaskjdfa;lksdfj;laskdjflaksjfdaslkdjf"""
+"""
+This file contains some web services.
+"""
 
-A = 5
+from fastapi import FastAPI
 
-print(A)
+api = FastAPI()
+
+
+@api.get("/")
+def read_root():
+    """This service is just a healthcheck endpoint."""
+    return {"Hello": "World"}
+
+
+@api.post("/predict")
+def predict():
+    """This service returns a prediction value."""
+    return {"prediction": "1.0"}
